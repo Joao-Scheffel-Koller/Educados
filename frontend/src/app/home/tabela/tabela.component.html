@@ -1,0 +1,85 @@
+<div class="table-container">
+<table>
+    <thead>
+        <th>Estado</th>
+        <th>Cidade</th>
+        <th>Rede</th>
+        <th>
+            <button (click)="orderBy('ideb2017')">
+                IDEB 2017
+
+                @if ((sortOptions$ | async)?.column == 'ideb2017'){
+                    <span>
+                        {{ (sortOptions$ | async)?.direction === 'asc' ? '▲' : '▼' }}
+                    </span>
+                }
+            </button>
+        </th>
+        <th>
+            <button (click)="orderBy('ideb2019')">
+                IDEB 2019
+
+                @if ((sortOptions$ | async)?.column == 'ideb2019'){
+                    <span>
+                        {{ (sortOptions$ | async)?.direction === 'asc' ? '▲' : '▼' }}
+                    </span>
+                }
+            </button>
+        </th>
+        <th>
+            <button (click)="orderBy('ideb2021')">
+                IDEB 2021
+
+                @if ((sortOptions$ | async)?.column == 'ideb2021'){
+                    <span>
+                        {{ (sortOptions$ | async)?.direction === 'asc' ? '▲' : '▼' }}
+                    </span>
+                }
+            </button>
+        </th>
+        <th>
+            <button (click)="orderBy('ideb2023')">
+                IDEB 2023
+
+                @if ((sortOptions$ | async)?.column == 'ideb2023'){
+                    <span>
+                        {{ (sortOptions$ | async)?.direction === 'asc' ? '▲' : '▼' }}
+                    </span>
+                }
+            </button>
+        </th>
+    </thead>
+
+    @if (data | async; as data){
+        @if (data.length > 0){
+            <tbody>
+                @for (stat of data; track stat){
+                    <tr>
+                        <td>{{stat.estado}}</td>
+                        <td><a [routerLink]="['/municipio', stat.cod_municipio, stat.rede]">{{stat.nome}}</a></td>
+                        <td>{{redeFromCode(stat.rede)}}</td>
+                        <td>{{truncateFloat(stat.ideb2017)}}</td>
+                        <td>{{truncateFloat(stat.ideb2019)}}</td>
+                        <td>{{truncateFloat(stat.ideb2021)}}</td>
+                        <td>{{truncateFloat(stat.ideb2023)}}</td>
+                    </tr>
+                }
+            </tbody>
+        }
+        @else {
+            <tbody>
+               <td colspan="5">
+                <p >Nenhum resultado encontrado para a busca!</p>
+               </td> 
+            </tbody>
+        }
+    } 
+    @else {
+        <tbody>
+               <td colspan="5">
+                <p>Carregando dados...</p>
+               </td> 
+            </tbody>
+    }
+</table>
+</div>

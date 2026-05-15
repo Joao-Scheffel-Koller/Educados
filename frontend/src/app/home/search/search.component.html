@@ -1,0 +1,21 @@
+<form>
+    <i class="fa fa-search icon"></i>
+    <input type="text" (input)="updateNameFilter($event)" (keydown.enter)="$event.preventDefault()" placeholder="Santa Cidade..."
+     [value]="filtroService.nameFilter$ | async" 
+    >
+
+    <br>
+    <select [value]="filtroService.estadoFilter$ | async" (change)="onEstadoChange($event)" id="estado">
+        <option value="" default>Estado</option>
+        <option value="RS">RS</option>
+        <option value="SC">SC</option>
+        <option value="PR">PR</option>
+    </select>
+    
+    <select [value]="filtroService.redeFilter$ | async" (change)="onRedeChange($event)">
+    <option value="3">Rede</option>
+    <option value="0">Pública</option>
+    <option value="1">Estadual</option>
+    <option value="2">Federal</option>
+  </select>
+</form>
